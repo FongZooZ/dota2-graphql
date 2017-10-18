@@ -1,3 +1,3 @@
 'use strict';
 
-export const debug = process.env != 'production';
+export const debug = process.env.NODE_ENV != 'production';
