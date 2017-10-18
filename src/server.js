@@ -6,16 +6,19 @@ import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import cluster from 'cluster';
 import numCPUs from 'os';
+import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
+import graphqlConfig from './core/config/graphql';
+import { debug } from './core/config';
 
 let app = express();
 const expressPort = process.env.PORT || 3000;
 
-if (process.env != 'production') app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-	extended: true
-}));
+if (debug) app.use(logger('dev'));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+app.use('/graphql', bodyParser.json(), graphqlExpress(graphqlConfig));
+app.get('/', graphiqlExpress({ endpointURL: '/graphql' }));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
