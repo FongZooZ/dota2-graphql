@@ -35,7 +35,9 @@ app.use(function(err, req, res, next) {
 
 	// render the error page
 	res.status(err.status || 500);
-	res.render('error');
+	// TODO: view engine
+	res.end();
+	// res.render('error');
 });
 
 if (!debug) {

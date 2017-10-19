@@ -1,17 +1,12 @@
 'use strict';
 
-import { makeExecutableSchema } from 'graphql-tools';
+import {
+	makeExecutableSchema
+} from 'graphql-tools';
+import typeDefs from './typeDefs';
+import resolvers from '../resolvers';
 
-// Temp
-const typeDefs = `
-  type Link {
-    id: ID!
-    url: String!
-    description: String!
-  }
-  type Query {
-    allLinks: [Link!]!
-  }
-`;
-
-export default makeExecutableSchema({typeDefs});
+export default makeExecutableSchema({
+	typeDefs,
+	resolvers
+});

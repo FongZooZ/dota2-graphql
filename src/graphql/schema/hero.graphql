@@ -1,0 +1,14 @@
+export default `
+	type getHeroesData {
+		data: [Hero]
+	}
+
+	type Hero {
+		id: Int
+		name: String
+		localizedName: String
+		attackType: String
+		roles: [String]
+		legs: Int
+	}
+`;
