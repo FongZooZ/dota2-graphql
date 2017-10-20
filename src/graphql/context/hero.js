@@ -5,7 +5,7 @@ import url from '../../core/config/url';
 
 const getHeroes = async (params) => {
 	let heroes = await fetch(url.getHeroes, params);
-		return heroes;
+	return heroes;
 }
 
 export default {

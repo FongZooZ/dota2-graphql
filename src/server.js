@@ -1,4 +1,5 @@
 'use strict';
+require('newrelic');
 
 import express from 'express';
 import logger from 'morgan';
@@ -17,8 +18,14 @@ if (debug) app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/graphql', bodyParser.json(), graphqlExpress(graphqlConfig));
-app.get('/', graphiqlExpress({ endpointURL: '/graphql' }));
+app.route('/graphql')
+	.post(bodyParser.json(), graphqlExpress(graphqlConfig));
+
+app.route('/').
+	get(graphiqlExpress({ endpointURL: '/graphql' }));
+
+app.route('/api/test').
+	get((req, res, next) => res.json({yo: true}));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
